@@ -80,8 +80,20 @@ if args["--list-accounts"]:
     [print(a) for a in accounts]
     sys.exit()
 
+_get_username_cmd = config["pass-rotate"]["get-username"]
 _get_password_cmd = config["pass-rotate"]["get-password"]
 _gen_password_cmd = config["pass-rotate"]["gen-password"]
+_save_password_cmd = config["pass-rotate"]["save-password"]
+
+def get_username(account):
+    env = os.environ
+    env.update({ "ACCOUNT": account })
+    subp = subprocess.run([_get_username_cmd],
+            shell=True, env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    if subp.returncode != 0:
+        raise Exception("get_username command exited with nonzero status code")
+    return subp.stdout.decode().strip()
 
 def get_password(account):
     env = os.environ
@@ -101,6 +113,17 @@ def gen_password(account):
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     if subp.returncode != 0:
         raise Exception("gen_password command exited with nonzero status code")
+    return subp.stdout.decode().strip()
+
+def save_password(account, password):
+    env = os.environ
+    env.update({ "ACCOUNT": account, "PASSWORD": password, "NEW_PASSWORD": password })
+    subp = subprocess.run([_save_password_cmd, account, password],
+            shell=True, env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    if subp.returncode != 0:
+        raise Exception("save_password command exited with nonzero status code")
     return get_password(account)
 
 def custom_prompt(prompt, prompt_type):
@@ -125,6 +148,9 @@ for account in args.get("<accounts>"):
     sys.stderr.write("Rotating {}... ".format(pass_name))
     sys.stderr.flush()
     try:
+        if dry_run:
+            username = get_username(pass_name)
+            print("Username:", username)
         old_password = get_password(pass_name)
         provider.prepare(old_password)
         new_password = gen_password(pass_name)
