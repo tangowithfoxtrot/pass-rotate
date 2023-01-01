@@ -8,6 +8,7 @@ Usage:
   pass-rotate --list-options <provider>
 
 Options:
+  --dry-run         Print the old, new, and saved passwords to the screen, without connecting to the provider
   --list-accounts   Print all configured accounts
   --list-providers  Print all supported service providers and exit
   --list-options    Prints options for the specified provider and exit
@@ -26,6 +27,11 @@ from getpass import getpass
 args = docopt(__doc__, version='pass-rotate 1.0')
 
 pass_rotate = PassRotate()
+
+if args["--dry-run"]:
+    dry_run = True
+else:
+    dry_run = False  
 
 if args["--list-providers"]:
     providers = sorted(pass_rotate.get_providers(), key=lambda p: p.name)
