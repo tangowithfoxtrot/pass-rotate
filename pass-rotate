@@ -151,7 +151,7 @@ for account in args.get("<accounts>"):
         if dry_run:
             username = get_username(pass_name)
             print("Username:", username)
-        old_password = get_password(pass_name)
+            old_password = get_password(pass_name)
             print("Old password:", old_password)
             new_password = gen_password(pass_name)
             print("New Password:", new_password)
