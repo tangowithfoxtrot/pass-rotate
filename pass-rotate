@@ -3,6 +3,7 @@
 
 Usage:
   pass-rotate <accounts>...
+  pass-rotate --dry-run <accounts>...
   pass-rotate --list-accounts
   pass-rotate --list-providers
   pass-rotate --list-options <provider>
