@@ -19,12 +19,12 @@ class AnkiWeb(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://ankiweb.net/account/login")
         self._form = get_form(r.text, id="form")
         self._form.update({
-            "username": self.username,
+            "username": self.username or username,
             "password": old_password
         })
         r = self._session.post("https://ankiweb.net/account/login",
