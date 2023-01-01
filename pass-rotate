@@ -155,8 +155,7 @@ for account in args.get("<accounts>"):
             print("Old password:", old_password)
             new_password = gen_password(pass_name)
             print("New Password:", new_password)
-            saved_password = save_password(pass_name, new_password)
-            print("Saved Password:", saved_password)
+            print("Saved Password:", new_password)
             save_result = subprocess.run([_save_password_cmd], shell=True, env=os.environ, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             sys.stderr.write("OK\n")
         else:
