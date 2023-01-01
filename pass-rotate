@@ -62,7 +62,7 @@ if os.environ.get("XDG_CONFIG_HOME"):
     xdg_config_location = os.path.join(os.environ.get("XDG_CONFIG_HOME"), "pass-rotate.ini")
 else:
     xdg_config_location = None
-cfg_path = args.get("--config") or xdg_config_location or os.path.expanduser("~/.config/pass-rotate.ini")
+cfg_path = args.get("--config") or os.path.expanduser("./pass-rotate.ini") or xdg_config_location or os.path.expanduser("~/.config/pass-rotate.ini")
 try:
     with open(cfg_path) as f:
         config = ConfigParser()
