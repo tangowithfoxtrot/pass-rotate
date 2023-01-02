@@ -19,11 +19,11 @@ class Zotero(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         self._session.get("https://www.zotero.org/user/login")
         r = self._session.post("https://www.zotero.org/user/login", data={
-            "username": self.username,
+            "username": self.username or username,
             "password": old_password,
             "remember": 0,
             "login": "",

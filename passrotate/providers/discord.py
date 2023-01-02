@@ -17,7 +17,7 @@ class Discord(Provider):
     def __init__(self, options):
         self.email = options["email"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         data = {
             "email": self.email,
             "password": old_password

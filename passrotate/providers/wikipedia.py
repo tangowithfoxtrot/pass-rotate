@@ -34,7 +34,7 @@ class Wikipedia(Provider):
             raise Exception("Unable to log into Wikipedia account with current password")
         return r
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         self._login(old_password)
         r = self._session.get(self._password_change_url)

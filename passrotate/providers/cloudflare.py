@@ -27,7 +27,7 @@ class Cloudflare(Provider):
     def __init__(self, options):
         self.email = options["email"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://www.cloudflare.com/a/login")
         bs = get_bootstrap(r.text)

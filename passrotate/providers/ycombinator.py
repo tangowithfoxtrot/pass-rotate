@@ -19,7 +19,7 @@ class YCombinator(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.post("https://news.ycombinator.com/login", data={
             "acct": self.username,

@@ -29,7 +29,7 @@ class Linode(Provider):
         self.username = options["username"]
         self.expiry = options.get("expires") or "0"
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://manager.linode.com")
         form = get_form(r.text, id="CFForm_1")

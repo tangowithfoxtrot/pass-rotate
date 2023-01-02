@@ -18,7 +18,7 @@ class Ao3(Provider):
     def __init__(self, options):
         self.login = options["login"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
 
         ###authenticate

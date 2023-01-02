@@ -68,7 +68,7 @@ class GitLab(Provider):
         r = self._session.get("https://gitlab.com/profile/password/edit")
         self._form = get_form(r.text, id="edit_user_{}".format(self.user_id))
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
 
         r = self._login(old_password)

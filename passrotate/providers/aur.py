@@ -25,7 +25,7 @@ class ArchUserRepository(Provider):
             raise Exception("Unable to log into your Arch User Repository account with current password")
         return r
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         self._login(old_password)
         password_change_url = "https://aur.archlinux.org/account/" + self.username + "/edit"

@@ -19,12 +19,12 @@ class PyPI(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://pypi.python.org/pypi?%3Aaction=login_form")
         self._form = get_form(r.text, type="div", id="content")
         self._form.update({
-            "username": self.username,
+            "username": self.username or username,
             "password": old_password
         })
         r = self._session.post("https://pypi.python.org/pypi",

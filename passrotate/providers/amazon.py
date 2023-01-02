@@ -22,12 +22,12 @@ class Amazon(Provider):
     def __init__(self, options):
         self._email = options["email"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://www.amazon.com/ap/signin?openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0")
         form = get_form(r.text, name="signIn")
         form.update({
-            "email": self._email,
+            "email": self._email or username,
             "password": old_password
         })
         r = self._session.post("https://www.amazon.com/ap/signin",

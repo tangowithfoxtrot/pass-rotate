@@ -20,7 +20,7 @@ class Twitter(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.get("https://mobile.twitter.com/login")
         tk = self._session.cookies.get("_mb_tk")

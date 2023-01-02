@@ -18,7 +18,7 @@ class Facebook(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def prepare(self, old_password):
+    def prepare(self, username, old_password):
         self._session = requests.Session()
 
         ###authenticate
