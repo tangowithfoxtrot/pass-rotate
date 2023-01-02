@@ -22,7 +22,7 @@ class YCombinator(Provider):
     def prepare(self, username, old_password):
         self._session = requests.Session()
         r = self._session.post("https://news.ycombinator.com/login", data={
-            "acct": self.username,
+            "acct": self.username or username,
             "pw": old_password
         }, allow_redirects=False)
         if "Bad login" in r.text:

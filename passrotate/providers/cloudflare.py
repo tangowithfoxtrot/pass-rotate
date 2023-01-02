@@ -32,7 +32,7 @@ class Cloudflare(Provider):
         r = self._session.get("https://www.cloudflare.com/a/login")
         bs = get_bootstrap(r.text)
         form = {
-            "email": self.email,
+            "email": self.email or username,
             "password": old_password,
             "security_token": bs["data"]["security_token"]
         }

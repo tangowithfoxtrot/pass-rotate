@@ -24,7 +24,7 @@ class GitHub(Provider):
         r = self._session.get("https://github.com/login")
         form = get_form(r.text)
         form.update({
-            "login": self.username,
+            "login": self.username or username,
             "password": old_password
         })
         r = self._session.post("https://github.com/session", data=form)

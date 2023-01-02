@@ -22,11 +22,11 @@ class Wikipedia(Provider):
     def __init__(self, options):
         self.username = options["username"]
 
-    def _login(self, old_password):
+    def _login(self, username, old_password):
         r = self._session.get(self._login_url)
         form = get_form(r.text)
         form.update({
-            "wpName": self.username,
+            "wpName": self.username or username,
             "wpPassword": old_password
         })
         r = self._session.post(self._login_url, data=form)
@@ -36,7 +36,7 @@ class Wikipedia(Provider):
 
     def prepare(self, username, old_password):
         self._session = requests.Session()
-        self._login(old_password)
+        self._login(username, old_password)
         r = self._session.get(self._password_change_url)
         self._form = get_form(r.text)
 

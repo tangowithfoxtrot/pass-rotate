@@ -27,7 +27,7 @@ class Namecheap(Provider):
         r = self._session.get("https://www.namecheap.com/myaccount/login.aspx")
         form = get_form(r.text, type="body")
         form.update({
-            "LoginUserName": self.username,
+            "LoginUserName": self.username or username,
             "LoginPassword": "*************",
             "hidden_LoginPassword": base64.b64encode(old_password.encode()).decode().rstrip("="),
             "ctl00$ctl00$ctl00$ctl00$base_content$web_base_content$home_content$page_content_left$ctl02$LoginButton":

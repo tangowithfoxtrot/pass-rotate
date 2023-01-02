@@ -28,7 +28,7 @@ class Twitter(Provider):
             return False
         r = self._session.post("https://mobile.twitter.com/sessions", data={
             "authenticity_token": tk,
-            "session[username_or_email]": self.username,
+            "session[username_or_email]": self.username or username,
             "session[password]": old_password,
             "remember_me": 0,
             "wfa": 1,

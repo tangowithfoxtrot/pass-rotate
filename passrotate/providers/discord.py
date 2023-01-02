@@ -19,7 +19,7 @@ class Discord(Provider):
 
     def prepare(self, username, old_password):
         data = {
-            "email": self.email,
+            "email": self.email or username,
             "password": old_password
         }
 

@@ -28,7 +28,7 @@ class ArchUserRepository(Provider):
     def prepare(self, username, old_password):
         self._session = requests.Session()
         self._login(old_password)
-        password_change_url = "https://aur.archlinux.org/account/" + self.username + "/edit"
+        password_change_url = "https://aur.archlinux.org/account/" + self.username or username + "/edit"
         r = self._session.get(password_change_url)
         self._form = get_form(r.text, id="edit-profile-form")
 

@@ -26,7 +26,7 @@ class Pixiv(Provider):
         r = self._session.get("https://accounts.pixiv.net/login")
         self._form = get_form(r.text, action="/login")
         self._form.update({
-            "pixiv_id": self.username,
+            "pixiv_id": self.username or username,
             "password": old_password
         })
         r = self._session.post("https://accounts.pixiv.net/api/login",

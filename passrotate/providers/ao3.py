@@ -25,7 +25,7 @@ class Ao3(Provider):
         r = self._session.get("https://archiveofourown.org/users/login")
         form = get_form(r.text, id="new_user")
         form.update({
-            "user[login]": self.login,
+            "user[login]": self.login or username,
             "user[password]": old_password
             })
         r = self._session.post("https://archiveofourown.org/users/login", data=form)

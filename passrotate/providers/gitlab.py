@@ -51,11 +51,11 @@ class GitLab(Provider):
             raise Exception("Unable to login via OTP")
 
 
-    def _login(self, old_password):
+    def _login(self, username, old_password):
         r = self._session.get("https://gitlab.com/users/sign_in")
         form = get_form(r.text)
         form.update({
-            "user[login]": self.username,
+            "user[login]": self.username or username,
             "user[password]": old_password
         })
         r = self._session.post("https://gitlab.com/users/sign_in", data=form)
@@ -71,7 +71,7 @@ class GitLab(Provider):
     def prepare(self, username, old_password):
         self._session = requests.Session()
 
-        r = self._login(old_password)
+        r = self._login(username, old_password)
         self._handle_two_factor_auth(r)
         self._read_userid()
         self._set_form()

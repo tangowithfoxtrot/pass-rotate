@@ -34,7 +34,7 @@ class Linode(Provider):
         r = self._session.get("https://manager.linode.com")
         form = get_form(r.text, id="CFForm_1")
         form.update({
-            "auth_username": self.username,
+            "auth_username": self.username or username,
             "auth_password": old_password,
         })
         r = self._session.post("https://manager.linode.com/session/login", data=form)

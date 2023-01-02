@@ -25,7 +25,7 @@ class Facebook(Provider):
         r = self._session.get("https://m.facebook.com/login.php")
         form = get_form(r.text, id="login_form")
         form.update({
-            "email": self.username,
+            "email": self.username or username,
             "pass": old_password
             })
         r = self._session.post("https://m.facebook.com/login.php", data=form)

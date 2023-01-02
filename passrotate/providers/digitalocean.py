@@ -26,7 +26,7 @@ class DigitalOcean(Provider):
         r = self._session.get("https://cloud.digitalocean.com/login")
         form = get_form(r.text, id="new_user")
         form.update({
-            "user[email]": self.email,
+            "user[email]": self.email or username,
             "user[password]": old_password,
         })
         r = self._session.post("https://cloud.digitalocean.com/sessions", data=form)
